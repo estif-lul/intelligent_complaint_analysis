@@ -1,6 +1,6 @@
 from transformers import pipeline
-from prompt_template import build_prompt
-from retriever import retrieve_top_k_chunks
+from src.prompt_template import build_prompt
+from src.retriever import retrieve_top_k_chunks
 
 generator = pipeline('text-generation', model='tiiuae/falcon-7b-instruct', max_new_tokens=200)
 
