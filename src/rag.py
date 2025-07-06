@@ -3,10 +3,6 @@ import numpy as np
 import pickle
 from sentence_transformers import SentenceTransformer
 
-from transformers import pipeline
-from prompt_template import build_prompt
-from retriever import retrieve_top_k_chunks
-
 # Load index and metadata
 index = faiss.read_index('vector_store/faiss_index.index')
 with open('vector_store/chunks_with_embeddings.pkl') as f:
@@ -32,11 +28,4 @@ def build_prompt(context_chunks, question):
             Question: {question}
             Answer:"""
 
-generator = pipeline('text-generation', model='tiiuae/falcon-7b-instruct', max_new_tokens=200)
-
-def answer_question(question):
-    chunks = retrieve_top_k_chunks(question)
-    prompt = build_prompt(chunks, question)
-    response = generator(prompt, return_full_text=False)[0]['generated_text']
-    return response.strip(), chunks
 
