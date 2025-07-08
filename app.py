@@ -5,6 +5,18 @@ import datetime
 chat_history = []
 
 def chat_fn(message, history, product_filter):
+    """
+    Processes a chat message, retrieves an answer with sources, and updates the chat history.
+    Args:
+        message (str): The user's input message.
+        history (list): The current chat history as a list of (user_message, response) tuples.
+        product_filter (str): Optional product filter to refine the query.
+    Returns:
+        tuple: A tuple containing an empty string (for input reset) and the updated chat history.
+    Side Effects:
+        Appends the new message and formatted response (including sources and timestamp) to the history list.
+    """
+
     full_query = f"{message} [Product: {product_filter}]" if product_filter else message
     answer, sources = answer_question(full_query)
     
